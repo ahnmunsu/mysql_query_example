@@ -31,4 +31,19 @@ FROM (
 
 ---
 ## 하나의 컬럼을 여러 컬럼으로 분리
+```sql
+SELECT de.dept_no,
+  SUM(CASE WHEN e.hire_date BETWEEN '1980-01-01' AND '1989-12-31' THEN 1 ELSE 0 END) AS cnt_1980,
+  SUM(CASE WHEN e.hire_date BETWEEN '1990-01-01' AND '1999-12-31' THEN 1 ELSE 0 END) AS cnt_1990,
+  SUM(CASE WHEN e.hire_date BETWEEN '2000-01-01' AND '2009-12-31' THEN 1 ELSE 0 END) AS cnt_2000,
+  COUNT(*) AS cnt_total
+FROM dept_emp de, employees e
+WHERE e.emp_no=de.emp_no
+GROUP BY de.dept_no;
 ```
+|dept_no|cnt_1980|cnt_1990|cnt_2000|cnt_total|
+|---|---|---|---|---|
+|d001|11038|9171|2|20211|
+|d002|9580|7765|1|17346|
+|d003|9714|8068|4|17786|
+|...|...|...|...|...|
