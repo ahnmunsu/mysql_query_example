@@ -2,6 +2,7 @@
 
 ## 목차
 - **[OUTER JOIN 주의 사항](#OUTER-JOIN-주의-사항)**
+- **[ANTI JOIN](#ANTI-JOIN)**
 - **[레코드를 칼럼으로 변환](#레코드를-칼럼으로-변환)**
 - **[하나의 컬럼을 여러 컬럼으로 분리](#하나의-컬럼을-여러-컬럼으로-분리)**
 
@@ -11,6 +12,13 @@ OUTER JOIN에서 OUTER로 조인되는 테이블의 칼럼에 대한 조건은 �
 ```sql
 SELECT * FROM employees e
   LEFT JOIN dept_manager mgr ON mgr.emp_no=e.emp_no AND mgr.dept_no='d001';
+```
+## ANTI JOIN
+```sql
+SELECT t1.id
+FROM tab_test t1
+  LEFT JOIN tab_test2 t2 ON t1.id=t2.id
+WHERE t2.id IS NULL
 ```
 ## 레코드를 칼럼으로 변환
 ```sql
