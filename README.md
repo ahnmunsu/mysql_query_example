@@ -5,7 +5,7 @@
 - **[ANTI JOIN](#ANTI-JOIN)**
 - **[레코드를 칼럼으로 변환](#레코드를-칼럼으로-변환)**
 - **[하나의 컬럼을 여러 컬럼으로 분리](#하나의-컬럼을-여러-컬럼으로-분리)**
-- **[AUTO_INCREMENT 컬럼 규칙](#AUTO-INCREMENT-컬럼-규칙)**
+- **[AUTO INCREMENT 컬럼 규칙](#AUTO-INCREMENT-컬럼-규칙)**
 ---
 ## OUTER JOIN 주의 사항
 OUTER JOIN에서 OUTER로 조인되는 테이블의 칼럼에 대한 조건은 모두 ON 절에 명시해야 한다.
@@ -65,7 +65,7 @@ GROUP BY de.dept_no;
 |...|...|...|...|...|
 
 ---
-## AUTO_INCREMENT 컬럼 규칙
+## AUTO INCREMENT 컬럼 규칙
 
 
 ## 출처
