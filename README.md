@@ -7,6 +7,7 @@
 - **[하나의 컬럼을 여러 컬럼으로 분리](#하나의-컬럼을-여러-컬럼으로-분리)**
 - **[AUTO INCREMENT 컬럼 규칙](#AUTO-INCREMENT-컬럼-규칙)**
 - **[AUTO INCREMENT 증가값 조회](#AUTO-INCREMENT-증가값-조회)**
+- **[정렬과 함께 순서 부여](#정렬과-함께-순서-부여)**
 
 ---
 ## OUTER JOIN 주의 사항
@@ -96,6 +97,16 @@ CREATE TABLE tb_autoincrement (
 
 INSERT INTO tb_autoincrement VALUES (NULL, 'Gerogi Fellona');
 SELECT LAST_INSERT_ID();
+```
+
+---
+## 정렬과 함께 순서 부여
+```sql
+SET @ranking:=0;
+
+UPDATE salaries
+  SET ranking=( @ranking := @ranking + 1 )
+ORDER BY salary DESC;
 ```
 
 ## 출처
