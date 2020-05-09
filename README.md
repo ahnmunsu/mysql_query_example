@@ -66,7 +66,21 @@ GROUP BY de.dept_no;
 
 ---
 ## AUTO INCREMENT 컬럼 규칙
-
+- AUTO_INCREMENT 속성을 가진 컬럼은 반드시 프라이머리 키나 유니크 키의 일부로 정의돼야 한다.
+- AUTO_INCREMENT 속성을 가진 컬럼 하나로 프라이머리 키를 생성할 때는 아무런 제약이 없다.
+- 여러 개의 컬럼으로 프라이머리 키를 생성할 때
+  - AUTO_INCREMENT 속성의 컬럼이 제일 앞일 때
+    AUTO_INCREMENT 속성의 컬럼이 프라이머리 키의 제일 앞쪽에 위치하면 MyISAM이나 InnoDB 테이블에서 아무런 제약이 없다.
+  - AUTO_INCREMENT 속성의 컬럼이 제일 앞이 아닐 때
+    다음 예제에서, tb_test 테이블은 fd1과 fd2 컬럼으로 구성된 프라이머리 키만을 가지고 있다. MyISAM 테이블에서는 이와 같이 사용할 수 있지만 InnoDB 테이블에서는 이렇게 생성할 수 없다. InnoDB에서는 반드시 UNIQUE INDEX (fd2)와 같이 fd2로 시작하는 UNIQUE 키를 하나 더 생성해야만 한다.
+    
+ ``` sql
+ CREATE TABLE tb_test {
+   fd1 CHAR,
+   fd2 INT AUTO_INCREMENT,
+   PRIMARY KEY(fd1, fd2)
+ }
+ ```
 
 ## 출처
 개발자와 DBA를 위한 Real MySQL / 이성욱 / 위키북스
