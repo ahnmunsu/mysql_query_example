@@ -14,6 +14,8 @@ SELECT * FROM employees e
   LEFT JOIN dept_manager mgr ON mgr.emp_no=e.emp_no AND mgr.dept_no='d001';
 ```
 ## ANTI JOIN
+tab_test1 테이블에는 있지만 tab_test2에는 없는 id 값만 가져오는 쿼리이다.  
+서브 쿼리와 NOT EXIST를 사용하는 방법도 있지만 레코드 건수가 많다면 ANTI JOIN이 효과적이다.
 ```sql
 SELECT t1.id
 FROM tab_test t1
