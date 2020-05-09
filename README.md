@@ -6,7 +6,7 @@
 - **[레코드를 칼럼으로 변환](#레코드를-칼럼으로-변환)**
 - **[하나의 컬럼을 여러 컬럼으로 분리](#하나의-컬럼을-여러-컬럼으로-분리)**
 - **[AUTO INCREMENT 컬럼 규칙](#AUTO-INCREMENT-컬럼-규칙)**
-- **[AUTO INCREMENT 증가값 조회](AUTO-INCREMENT-증가값-조회)**
+- **[AUTO INCREMENT 증가값 조회](#AUTO-INCREMENT-증가값-조회)**
 
 ---
 ## OUTER JOIN 주의 사항
