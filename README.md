@@ -6,6 +6,8 @@
 - **[레코드를 칼럼으로 변환](#레코드를-칼럼으로-변환)**
 - **[하나의 컬럼을 여러 컬럼으로 분리](#하나의-컬럼을-여러-컬럼으로-분리)**
 - **[AUTO INCREMENT 컬럼 규칙](#AUTO-INCREMENT-컬럼-규칙)**
+- **[AUTO INCREMENT 증가값 조회](AUTO-INCREMENT-증가값-조회)**
+
 ---
 ## OUTER JOIN 주의 사항
 OUTER JOIN에서 OUTER로 조인되는 테이블의 칼럼에 대한 조건은 모두 ON 절에 명시해야 한다.
@@ -81,6 +83,20 @@ GROUP BY de.dept_no;
    PRIMARY KEY(fd1, fd2)
  }
  ```
+
+---
+## AUTO INCREMENT 증가값 조회
+"SELECT MAX(member_id) FROM ..."과 같은 쿼리는 잘못된 결과를 반환할 수도 있으므로 다음과 같이 조회하는 것이 좋다.
+```sql
+CREATE TABLE tb_autoincrement (
+  seq_no INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(30),
+  PRIMARY KEY (seq_no)
+);
+
+INSERT INTO tb_autoincrement VALUES (NULL, 'Gerogi Fellona');
+SELECT LAST_INSERT_ID();
+```
 
 ## 출처
 개발자와 DBA를 위한 Real MySQL / 이성욱 / 위키북스
