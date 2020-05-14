@@ -11,6 +11,7 @@
 - **[N번째 레코드만 가져오기](#N번째-레코드만-가져오기)**
 - **[누적 합계 구하기](#누적-합계-구하기)**
 - **[그룹별 랭킹 쿼리](#그룹별-랭킹-쿼리)**
+- **[랭킹 업데이트 하기](#랭킹-업데이트-하기)**
 ---
 ## OUTER JOIN 주의 사항
 OUTER JOIN에서 OUTER로 조인되는 테이블의 칼럼에 대한 조건은 모두 ON 절에 명시해야 한다.
@@ -147,7 +148,15 @@ ORDER BY first_name, last_name;
 |428804|Bezalel|Zallocco|Bezalel|227|228|Bezalel|228|
 |90035|Georgi|Aamodt|Bezalel|228|1|Georgi|1|
 |...|...|...|...|...|...|...|...|
+---
+## 랭킹 업데이트 하기
+```sql
+SELECT @rank:=0;
 
+UPDATE tb_ranking r
+SET r.rank_no = (@rank:=@rank+1)
+ORDER BY r.member_score DESC;
+```
 ---
 ## 출처
 개발자와 DBA를 위한 Real MySQL / 이성욱 / 위키북스
