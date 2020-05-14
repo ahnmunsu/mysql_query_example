@@ -10,6 +10,7 @@
 - **[정렬과 함께 순서 부여](#정렬과-함께-순서-부여)**
 - **[N번째 레코드만 가져오기](#N번째-레코드만-가져오기)**
 - **[누적 합계 구하기](#누적-합계-구하기)**
+- **[그룹별 랭킹 쿼리](#그룹별-랭킹-쿼리)**
 ---
 ## OUTER JOIN 주의 사항
 OUTER JOIN에서 OUTER로 조인되는 테이블의 칼럼에 대한 조건은 모두 ON 절에 명시해야 한다.
@@ -125,6 +126,28 @@ SELECT emp_no, salary, (@acc_salary:=@acc_salary+salary) AS acc_salary
 FROM salaries, (SELECT @acc_salary:=0) x
 LIMIT 10;
 ```
+---
+## 그룹별 랭킹 쿼리
+```sql
+SELECT
+  emp_no, first_name, last_name,
+  @prev_firstname, @rank,
+  IF(@prev_firstname=first_name,
+    @rank:=@rank+1, @rank:=1+LEAST(0,@prev_firstname:=first_name)) rank,
+  @prev_firstname, @rank
+FROM employees, (SELECT @rank:=0) x1, (SELECT @prev_firstname:=NULL) x2
+WHERE first_name IN ('Georgi', 'Bezalel')
+ORDER BY first_name, last_name;
+```
+|emp_no|first_name|last_name|@prev_firstname|@rank|rank|@prev_firstname|@rank|
+|---|---|---|---|---|---|---|---|
+|297135|Bezalel|Acton|NULL|0|1|Bezalel|1|
+|25442|Bezalel|Adachi|Bezalel|1|2|Bezalel|2|
+|...|...|...|...|...|...|...|...|
+|428804|Bezalel|Zallocco|Bezalel|227|228|Bezalel|228|
+|90035|Georgi|Aamodt|Bezalel|228|1|Georgi|1|
+|...|...|...|...|...|...|...|...|
+
 ---
 ## 출처
 개발자와 DBA를 위한 Real MySQL / 이성욱 / 위키북스
