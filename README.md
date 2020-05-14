@@ -128,3 +128,4 @@ LIMIT 10;
 ---
 ## 출처
 개발자와 DBA를 위한 Real MySQL / 이성욱 / 위키북스
+https://wikibook.co.kr/real-mysql/
