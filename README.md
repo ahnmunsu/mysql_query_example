@@ -9,6 +9,7 @@
 - **[AUTO INCREMENT 증가값 조회](#AUTO-INCREMENT-증가값-조회)**
 - **[정렬과 함께 순서 부여](#정렬과-함께-순서-부여)**
 - **[N번째 레코드만 가져오기](#N번째-레코드만-가져오기)**
+- **[누적 합계 구하기](#누적-합계-구하기)**
 ---
 ## OUTER JOIN 주의 사항
 OUTER JOIN에서 OUTER로 조인되는 테이블의 칼럼에 대한 조건은 모두 ON 절에 명시해야 한다.
@@ -115,6 +116,14 @@ SELECT *
 FROM departments, (SELECT @rn:=0) x
 HAVING (@rn:=@rn+1)=3
 ORDER BY dept_name;
+```
+---
+## 누적 합계 구하기
+FROM절의 (SELECT @acc_salary:=0)는 누적 합계 값을 임시로 저장해 두는 @acc_salary 변수를 0으로 초기화하기 위한 서브 쿼리로 사용됐다.
+```sql
+SELECT emp_no, salary, (@acc_salary:=@acc_salary+salary) AS acc_salary
+FROM salaries, (SELECT @acc_salary:=0) x
+LIMIT 10;
 ```
 ---
 ## 출처
