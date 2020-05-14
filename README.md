@@ -8,7 +8,7 @@
 - **[AUTO INCREMENT 컬럼 규칙](#AUTO-INCREMENT-컬럼-규칙)**
 - **[AUTO INCREMENT 증가값 조회](#AUTO-INCREMENT-증가값-조회)**
 - **[정렬과 함께 순서 부여](#정렬과-함께-순서-부여)**
-
+- **[N번째 레코드만 가져오기](#N번째-레코드만-가져오기)**
 ---
 ## OUTER JOIN 주의 사항
 OUTER JOIN에서 OUTER로 조인되는 테이블의 칼럼에 대한 조건은 모두 ON 절에 명시해야 한다.
@@ -108,6 +108,14 @@ UPDATE salaries
   SET ranking=( @ranking := @ranking + 1 )
 ORDER BY salary DESC;
 ```
-
+---
+## N번째 레코드만 가져오기
+```sql
+SELECT *
+FROM departments, (SELECT @rn:=0) x
+HAVING (@rn:=@rn+1)=3
+ORDER BY dept_name;
+```
+---
 ## 출처
 개발자와 DBA를 위한 Real MySQL / 이성욱 / 위키북스
