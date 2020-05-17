@@ -12,6 +12,7 @@
 - **[누적 합계 구하기](#누적-합계-구하기)**
 - **[그룹별 랭킹 쿼리](#그룹별-랭킹-쿼리)**
 - **[랭킹 업데이트 하기](#랭킹-업데이트-하기)**
+- **[페이징 쿼리](#페이징-)**
 ---
 ## OUTER JOIN 주의 사항
 OUTER JOIN에서 OUTER로 조인되는 테이블의 칼럼에 대한 조건은 모두 ON 절에 명시해야 한다.
@@ -156,6 +157,33 @@ SELECT @rank:=0;
 UPDATE tb_ranking r
 SET r.rank_no = (@rank:=@rank+1)
 ORDER BY r.member_score DESC;
+```
+---
+## 페이징 쿼리
+#### 일반적으로 사용하는 테이블의 구조와 페이징 쿼리
+페이지를 이동할 때마다 디스크를 읽기 부하가 늘어나는 문제가 있다.
+```sql
+/* 테이블 구조 */
+CREATE TABLE tb_article (
+  board_id INT NOT NULL,
+  article_id INT NOT NULL AUTO_INCREMENT,
+  article_title VARCHAR(100) NOT NULL,
+  ...
+  PRIMARY KEY (article_id),
+  INDEX ix_boardid (board_id, article_id)
+);
+
+/* 페이징 쿼리 */
+SELECT *
+FROM tb_article WHERE board_id=1
+ORDER BY article_id DESC LIMIT n, m;
+```
+#### 불필요한 접근을 제거하기 위한 페이징 쿼리
+이전 페이지의 가장 마지막 article_id를 조건절에 넣어서 디스크 읽기 부하를 줄일 수 있다.
+```sql
+SELECT *
+FROM tb_article WHERE board_id=1 AND article_id<165
+ORDER BY article_id DESC LIMIT 0, 20;
 ```
 ---
 ## 출처
